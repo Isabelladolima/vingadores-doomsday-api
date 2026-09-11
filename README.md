@@ -25,18 +25,18 @@ O projeto gira em torno do filme **Vingadores: Doomsday** (estreia em 18/12/2026
 - [TMDb API](https://www.themoviedb.org/documentation/api) — dados reais de filmes e elenco
 
 ## 📂 Estrutura do projeto
-
+```
 vingadores-doomsday-api/
 ├── app/
-│ ├── main.py # Rotas da API
-│ ├── database.py # Configuração de conexão com o banco
-│ ├── models.py # Modelos das tabelas (SQLAlchemy)
-│ └── tmdb_service.py # Integração com a API do TMDb
-├── requirements.txt # Dependências do projeto
-├── .env # Variáveis de ambiente (não versionado)
+│   ├── main.py            # Rotas da API
+│   ├── database.py        # Configuração de conexão com o banco
+│   ├── models.py          # Modelos das tabelas (SQLAlchemy)
+│   └── tmdb_service.py    # Integração com a API do TMDb
+├── requirements.txt        # Dependências do projeto
+├── .env                     # Variáveis de ambiente (não versionado)
 ├── .gitignore
 └── README.md
-
+```
 
 ## Como rodar o projeto localmente
 
