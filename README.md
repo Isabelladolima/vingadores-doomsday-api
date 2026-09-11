@@ -32,8 +32,8 @@ vingadores-doomsday-api/
 │   ├── database.py        # Configuração de conexão com o banco
 │   ├── models.py          # Modelos das tabelas (SQLAlchemy)
 │   └── tmdb_service.py    # Integração com a API do TMDb
-├── requirements.txt        # Dependências do projeto
-├── .env                     # Variáveis de ambiente (não versionado)
+├── requirements.txt       # Dependências do projeto
+├── .env                   # Variáveis de ambiente (não versionado)
 ├── .gitignore
 └── README.md
 ```
