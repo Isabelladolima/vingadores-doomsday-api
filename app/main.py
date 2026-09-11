@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from app.database import Base, engine, get_db
-from app.models import FilmeDB
+from app.models import FilmeDB, ElencoDB
 from sqlalchemy.orm import Session 
+from app.tmdb_service import buscar_filme_por_nome, buscar_elenco
+
 
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
@@ -32,6 +34,24 @@ filme_info = Filme(
     sinopse = "Em Vingadores: Doutor Destino, heróis queridos de três universos distintos entrarão em rota de colisão e enfrentarão uma ameaça existencial sem precedentes"
 )
 
+class Elenco(BaseModel):
+    pessoa_id: int
+    nome: str
+    personagem: str
+    foto_path: str
+    ordem: int
+
+class ElencoResposta(BaseModel):
+    id: int
+    pessoa_id: int
+    nome: str
+    personagem: str
+    foto_path: str
+    ordem: int
+
+    class Config:
+        from_attributes = True
+
 @app.get("/")
 def raiz():
     return {"mensagem": "API do Vingadores: Doomsday está rodando!"}
@@ -39,6 +59,21 @@ def raiz():
 @app.get("/filme", response_model = list[FilmeResposta])
 def listar_filmes(db: Session = Depends(get_db)):
     return db.query(FilmeDB).all()
+
+@app.get("/tmdb/buscar")
+def buscar_no_tmdb(nome: str):
+    resultado = buscar_filme_por_nome(nome)
+    return resultado 
+
+@app.get("/tmdb/elenco")
+def mostrar_elenco(tmdb_id: int):
+    resultado = buscar_elenco(tmdb_id)
+    return resultado
+
+@app.get("/elenco", response_model = list[ElencoResposta])
+def listar_elenco(db: Session = Depends(get_db)):
+    return db.query(ElencoDB).all()
+
 
 @app.post("/filme", response_model=FilmeResposta)
 def criar_filme(filme: Filme, db: Session = Depends(get_db)):
@@ -52,6 +87,39 @@ def criar_filme(filme: Filme, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(novo_filme)
     return novo_filme
+
+
+@app.post("/elenco", response_model = ElencoResposta)
+def criar_elenco(elenco: Elenco, db: Session = Depends(get_db)):
+    novo_elenco = ElencoDB(
+        pessoa_id = elenco.pessoa_id,
+        nome = elenco.nome,
+        personagem = elenco.personagem,
+        foto_path = elenco.foto_path,
+        ordem = elenco.ordem,
+    )
+    db.add(novo_elenco)
+    db.commit()
+    db.refresh(novo_elenco)
+    return novo_elenco
+
+@app.post("/tmdb/elenco/{tmdb_id}/salvar")
+def salvar_elenco(tmdb_id: int, db: Session = Depends(get_db)):
+    dados = buscar_elenco(tmdb_id)
+
+    for pessoa in dados["cast"]:
+        novo_membro = ElencoDB(
+            pessoa_id = pessoa["id"],
+            nome = pessoa["name"],
+            personagem = pessoa["character"],
+            foto_path = pessoa ["profile_path"],
+            ordem = pessoa["order"]
+        )
+        db.add(novo_membro)
+
+    db.commit()
+    return {"mensagem": "Elenco salvo com sucesso!"}
+
 
 @app.delete("/filme/{filme_id}")
 def deletar_filme(filme_id: int, db: Session = Depends(get_db)):
