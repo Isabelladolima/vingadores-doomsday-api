@@ -15,10 +15,10 @@ API REST desenvolvida em **Python + FastAPI**, com integração a múltiplas API
 
 <br/>
 
-## ⚡ Funcionalidades
+## Funcionalidades
 
 <details open>
-<summary><b>🎬 Filmes</b></summary>
+<summary><b>Filmes</b></summary>
 <br/>
 
 CRUD completo — criar, listar, atualizar e deletar informações sobre o filme.
@@ -26,7 +26,7 @@ CRUD completo — criar, listar, atualizar e deletar informações sobre o filme
 </details>
 
 <details open>
-<summary><b>🎭 Elenco — integração com TMDb</b></summary>
+<summary><b>Elenco — integração com TMDb</b></summary>
 <br/>
 
 Busca de filmes e elenco em tempo real na API do TMDb, com importação automática em massa e CRUD completo dos registros salvos localmente.
@@ -34,7 +34,7 @@ Busca de filmes e elenco em tempo real na API do TMDb, com importação automát
 </details>
 
 <details open>
-<summary><b>📖 Aparições em quadrinhos — integração com Comic Vine</b></summary>
+<summary><b>Aparições em quadrinhos — integração com Comic Vine</b></summary>
 <br/>
 
 Busca de personagens e suas aparições em edições de quadrinhos reais via API da Comic Vine, com importação automática e persistência local.
@@ -42,7 +42,7 @@ Busca de personagens e suas aparições em edições de quadrinhos reais via API
 </details>
 
 <details open>
-<summary><b>🔐 Autenticação de usuários</b></summary>
+<summary><b>Autenticação de usuários</b></summary>
 <br/>
 
 Cadastro com senha protegida por hash (**bcrypt**) e login com emissão de token **JWT**, para proteger rotas restritas a usuários autenticados.
@@ -55,7 +55,7 @@ Cadastro com senha protegida por hash (**bcrypt**) e login com emissão de token
 
 <br/>
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 <div align="center">
 
@@ -105,10 +105,10 @@ vingadores-doomsday-api/
 
 <br/>
 
-## 📌 Principais endpoints
+## Principais endpoints
 
 <details>
-<summary><b>🎬 Filmes</b></summary>
+<summary><b>Filmes</b></summary>
 <br/>
 
 | Método | Rota | Descrição |
@@ -121,7 +121,7 @@ vingadores-doomsday-api/
 </details>
 
 <details>
-<summary><b>🎭 Elenco & TMDb</b></summary>
+<summary><b>Elenco & TMDb</b></summary>
 <br/>
 
 | Método | Rota | Descrição |
@@ -135,7 +135,7 @@ vingadores-doomsday-api/
 </details>
 
 <details>
-<summary><b>📖 Quadrinhos & Comic Vine</b></summary>
+<summary><b>Quadrinhos & Comic Vine</b></summary>
 <br/>
 
 | Método | Rota | Descrição |
@@ -148,7 +148,7 @@ vingadores-doomsday-api/
 </details>
 
 <details>
-<summary><b>🔐 Autenticação</b></summary>
+<summary><b>Autenticação</b></summary>
 <br/>
 
 | Método | Rota | Descrição |
@@ -160,14 +160,14 @@ vingadores-doomsday-api/
 
 <br/>
 
-## 🗺️ Próximos passos
+## Próximos passos
 
 - [ ] Sistema de teorias e discussão da comunidade, com rotas protegidas por autenticação
 - [ ] Deploy em serviço gratuito (Railway/Render)
 
 <br/>
 
-## 👩‍💻 Autora
+## Autora
 
 Desenvolvido por **Isabella Lima** como projeto de estudo e portfólio em desenvolvimento backend.
 
