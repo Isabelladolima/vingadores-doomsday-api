@@ -1,10 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from app.database import Base, engine, get_db
-from app.models import FilmeDB, ElencoDB, AparicaoQuadrinhoDB
+from app.models import FilmeDB, ElencoDB, AparicaoQuadrinhoDB, UsuarioDB
 from sqlalchemy.orm import Session 
 from app.tmdb_service import buscar_filme_por_nome, buscar_elenco
 from app.comicvine_service import buscar_personagem, buscar_aparicoes
+from app.auth import gerar_hash_senha, verificar_senha, criar_token
+from fastapi.security import OAuth2PasswordRequestForm
 
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
@@ -15,6 +17,17 @@ class Filme(BaseModel):
     data_lancamento: str
     diretores: list[str]
     sinopse: str
+
+class Elenco(BaseModel):
+    pessoa_id: int
+    nome: str
+    personagem: str
+    foto_path: str
+    ordem: int
+
+class UsuarioCadastro(BaseModel):
+    username: str
+    senha: str
 
 class FilmeResposta(BaseModel):
     id: int
@@ -33,13 +46,6 @@ filme_info = Filme(
     diretores = ["Anthony Russo", "Joe Russo"],
     sinopse = "Em Vingadores: Doutor Destino, heróis queridos de três universos distintos entrarão em rota de colisão e enfrentarão uma ameaça existencial sem precedentes"
 )
-
-class Elenco(BaseModel):
-    pessoa_id: int
-    nome: str
-    personagem: str
-    foto_path: str
-    ordem: int
 
 class ElencoResposta(BaseModel):
     id: int
@@ -157,6 +163,30 @@ def salvar_aparicao(personagem_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"mensagem": "Aparição salva com sucesso!"}
 
+@app.post("/usuarios/cadastro")
+def cadastrar_usuario(usuario: UsuarioCadastro, db: Session = Depends(get_db)):
+    usuario_existente = db.query(UsuarioDB).filter(UsuarioDB.username == usuario.username).first()
+    if usuario_existente:
+        raise HTTPException(status_code = 400, detail = "Nome de usuário já existe.")
+
+    senha_cripitografada = gerar_hash_senha(usuario.senha)
+    novo_usuario = UsuarioDB(username = usuario.username, senha_hash = senha_cripitografada)
+
+    db.add(novo_usuario)
+    db.commit()
+    db.refresh(novo_usuario)
+
+    return {"mensagem": f"Usuário {novo_usuario.username} cadastrado com sucesso!"}
+
+@app.post("/usuarios/login")
+def login (form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    usuario = db.query(UsuarioDB).filter(UsuarioDB.username == form_data.username).first()
+
+    if not usuario or not verificar_senha(form_data.password, usuario.senha_hash):
+        raise HTTPException(status_code = 401, detail = "Usuário ou senha incorretos")
+
+    token = criar_token({"sub": usuario.username})
+    return {"access_token": token, "token_type": "bearer"}
 
 @app.delete("/filme/{filme_id}")
 def deletar_filme(filme_id: int, db: Session = Depends(get_db)):

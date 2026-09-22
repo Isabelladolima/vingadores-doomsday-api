@@ -27,3 +27,10 @@ class AparicaoQuadrinhoDB(Base):
     issue_id = Column(Integer)
     titulo = Column(String)
     url = Column(String)
+
+class UsuarioDB(Base):
+    __tablename__ = "usuario"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String)
+    senha_hash = Column(String)
