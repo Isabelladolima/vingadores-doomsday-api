@@ -1,85 +1,115 @@
-# Ⓐ Vingadores: Doomsday API
+<div align="center">
 
-API REST desenvolvida em **Python + FastAPI**, com integração à API pública do **TMDb (The Movie Database)**, criada como projeto de portfólio e estudo de backend.
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D0D0D,50:1A3A2E,100:2ECC71&height=200&section=header&text=Vingadores:%20Doomsday%20API&fontSize=38&fontColor=FFFFFF&animation=fadeIn&fontAlignY=35&desc=Victor%20Von%20Doom%20%7C%20Monarquia%20de%20Latveria&descAlignY=55&descSize=16&descColor=7FD99A" width="100%"/>
 
-O projeto gira em torno do filme **Vingadores: Doomsday** (estreia em 18/12/2026), oferecendo dados sobre o filme e seu elenco, com persistência local em banco de dados.
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-2ECC71?style=for-the-badge&logoColor=white)
+![Python](https://img.shields.io/badge/-Python-0D0D0D?style=for-the-badge&logo=python&logoColor=2ECC71)
+![FastAPI](https://img.shields.io/badge/-FastAPI-0D0D0D?style=for-the-badge&logo=fastapi&logoColor=2ECC71)
+![JWT](https://img.shields.io/badge/-JWT-0D0D0D?style=for-the-badge&logo=jsonwebtokens&logoColor=2ECC71)
 
-## Funcionalidades
+</div>
 
-- **CRUD completo de Filmes** — criar, listar, atualizar e deletar informações sobre o filme
-- **Integração com a API do TMDb** — busca de filmes por nome e elenco em tempo real
-- **CRUD de Elenco** — criação manual de membros do elenco, listagem, e importação automática em massa a partir do TMDb
+> *"Todo mundo pensa que eu sou o vilão. Eles simplesmente não entendem a minha visão."* — Victor Von Doom
+
+API REST desenvolvida em **Python + FastAPI**, com integração a múltiplas APIs externas (**TMDb** e **Comic Vine**) e autenticação de usuários via **JWT**. Criada como projeto de portfólio e estudo de backend, girando em torno do filme **Vingadores: Doomsday** (estreia em 18/12/2026).
+
+<br/>
+
+## ⚡ Funcionalidades
+
+<details open>
+<summary><b>🎬 Filmes</b></summary>
+<br/>
+
+CRUD completo — criar, listar, atualizar e deletar informações sobre o filme.
+
+</details>
+
+<details open>
+<summary><b>🎭 Elenco — integração com TMDb</b></summary>
+<br/>
+
+Busca de filmes e elenco em tempo real na API do TMDb, com importação automática em massa e CRUD completo dos registros salvos localmente.
+
+</details>
+
+<details open>
+<summary><b>📖 Aparições em quadrinhos — integração com Comic Vine</b></summary>
+<br/>
+
+Busca de personagens e suas aparições em edições de quadrinhos reais via API da Comic Vine, com importação automática e persistência local.
+
+</details>
+
+<details open>
+<summary><b>🔐 Autenticação de usuários</b></summary>
+<br/>
+
+Cadastro com senha protegida por hash (**bcrypt**) e login com emissão de token **JWT**, para proteger rotas restritas a usuários autenticados.
+
+</details>
+
 - **Documentação interativa automática** via Swagger UI (`/docs`)
 - **Validação de dados** com Pydantic
 - **Persistência em banco de dados** SQLite via SQLAlchemy ORM
 
-## Tecnologias utilizadas
+<br/>
 
-- [Python 3.12](https://www.python.org/)
-- [FastAPI](https://fastapi.tiangolo.com/) — framework web
-- [SQLAlchemy](https://www.sqlalchemy.org/) — ORM
-- [SQLite](https://www.sqlite.org/) — banco de dados
-- [Pydantic](https://docs.pydantic.dev/) — validação de dados
-- [python-dotenv](https://pypi.org/project/python-dotenv/) — variáveis de ambiente
-- [Requests](https://docs.python-requests.org/) — chamadas HTTP
-- [TMDb API](https://www.themoviedb.org/documentation/api) — dados reais de filmes e elenco
+## 🛠️ Tecnologias utilizadas
+
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-0D0D0D?style=for-the-badge&logo=python&logoColor=2ECC71)
+![FastAPI](https://img.shields.io/badge/FastAPI-0D0D0D?style=for-the-badge&logo=fastapi&logoColor=2ECC71)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-0D0D0D?style=for-the-badge&logo=sqlalchemy&logoColor=2ECC71)
+![SQLite](https://img.shields.io/badge/SQLite-0D0D0D?style=for-the-badge&logo=sqlite&logoColor=2ECC71)
+![Pydantic](https://img.shields.io/badge/Pydantic-0D0D0D?style=for-the-badge&logo=pydantic&logoColor=2ECC71)
+![JSONWebTokens](https://img.shields.io/badge/JWT-0D0D0D?style=for-the-badge&logo=jsonwebtokens&logoColor=2ECC71)
+
+</div>
+
+| Tecnologia | Papel no projeto |
+|---|---|
+| [Python 3.12](https://www.python.org/) | Linguagem principal |
+| [FastAPI](https://fastapi.tiangolo.com/) | Framework web |
+| [SQLAlchemy](https://www.sqlalchemy.org/) | ORM |
+| [SQLite](https://www.sqlite.org/) | Banco de dados |
+| [Pydantic](https://docs.pydantic.dev/) | Validação de dados |
+| [python-jose](https://pypi.org/project/python-jose/) | Geração e validação de tokens JWT |
+| [passlib + bcrypt](https://pypi.org/project/passlib/) | Hash seguro de senhas |
+| [python-dotenv](https://pypi.org/project/python-dotenv/) | Variáveis de ambiente |
+| [Requests](https://docs.python-requests.org/) | Chamadas HTTP |
+| [TMDb API](https://www.themoviedb.org/documentation/api) | Dados reais de filmes e elenco |
+| [Comic Vine API](https://comicvine.gamespot.com/api/) | Dados reais de quadrinhos e personagens |
+
+<br/>
 
 ## 📂 Estrutura do projeto
+
 ```
 vingadores-doomsday-api/
 ├── app/
-│   ├── main.py            # Rotas da API
-│   ├── database.py        # Configuração de conexão com o banco
-│   ├── models.py          # Modelos das tabelas (SQLAlchemy)
-│   └── tmdb_service.py    # Integração com a API do TMDb
-├── requirements.txt       # Dependências do projeto
-├── .env                   # Variáveis de ambiente (não versionado)
+│   ├── main.py                 # Rotas da API
+│   ├── database.py             # Configuração de conexão com o banco
+│   ├── models.py                # Modelos das tabelas (SQLAlchemy)
+│   ├── auth.py                    # Hash de senha, geração e validação de JWT
+│   ├── tmdb_service.py        # Integração com a API do TMDb
+│   └── comicvine_service.py   # Integração com a API do Comic Vine
+├── requirements.txt        # Dependências do projeto
+├── .env                     # Variáveis de ambiente (não versionado)
 ├── .gitignore
 └── README.md
 ```
 
-## Como rodar o projeto localmente
+</details>
 
-### Pré-requisitos
-- Python 3.10 ou superior
-- Uma chave de API gratuita do [TMDb](https://www.themoviedb.org/settings/api)
+<br/>
 
-### Passo a passo
+## 📌 Principais endpoints
 
-1. Clone o repositório:
-```bash
-git clone https://github.com/Isabelladolima/vingadores-doomsday-api.git
-cd vingadores-doomsday-api
-```
-
-2. Crie e ative um ambiente virtual:
-```bash
-python -m venv venv
-venv\Scripts\activate      # Windows
-source venv/bin/activate   # Mac/Linux
-```
-
-3. Instale as dependências:
-```bash
-pip install -r requirements.txt
-```
-
-4. Crie um arquivo `.env` na raiz do projeto com sua chave do TMDb:
-```bash
-TMDB_API_KEY=sua_chave_aqui
-```
-
-6. Rode o servidor:
-```bash
-uvicorn app.main:app --reload
-```
-
-6. Acesse a documentação interativa:
-```bash
-http://127.0.0.1:8000/docs
-```
-
-## Principais endpoints
+<details>
+<summary><b>🎬 Filmes</b></summary>
+<br/>
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
@@ -87,22 +117,75 @@ http://127.0.0.1:8000/docs
 | POST | `/filme` | Cria um novo filme |
 | PUT | `/filme/{filme_id}` | Atualiza um filme existente |
 | DELETE | `/filme/{filme_id}` | Remove um filme |
+
+</details>
+
+<details>
+<summary><b>🎭 Elenco & TMDb</b></summary>
+<br/>
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
 | GET | `/tmdb/buscar` | Busca um filme pelo nome direto no TMDb |
 | GET | `/tmdb/elenco` | Busca o elenco de um filme direto no TMDb |
-| POST | `/tmdb/elenco/{tmdb_id}/salvar` | Importa e salva o elenco de um filme do TMDb no banco local |
+| POST | `/tmdb/elenco/{tmdb_id}/salvar` | Importa e salva o elenco do TMDb no banco local |
 | GET | `/elenco` | Lista o elenco salvo no banco |
 | POST | `/elenco` | Adiciona um membro do elenco manualmente |
 
-## Próximos passos
+</details>
 
-- [ ] Aparições históricas do Doutor Destino nos quadrinhos (API da Marvel)
-- [ ] Sistema de teorias e discussão da comunidade, com autenticação de usuários
+<details>
+<summary><b>📖 Quadrinhos & Comic Vine</b></summary>
+<br/>
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/comicvine/buscar` | Busca um personagem pelo nome direto no Comic Vine |
+| GET | `/comicvine/aparicoes` | Busca aparições de um personagem direto no Comic Vine |
+| POST | `/comicvine/aparicoes/{personagem_id}/salvar` | Importa e salva as aparições no banco local |
+| GET | `/aparicao` | Lista as aparições salvas no banco |
+
+</details>
+
+<details>
+<summary><b>🔐 Autenticação</b></summary>
+<br/>
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| POST | `/usuarios/cadastro` | Cadastra um novo usuário (senha protegida por hash) |
+| POST | `/usuarios/login` | Autentica e retorna um token JWT |
+
+</details>
+
+<br/>
+
+## 🗺️ Próximos passos
+
+- [ ] Sistema de teorias e discussão da comunidade, com rotas protegidas por autenticação
 - [ ] Deploy em serviço gratuito (Railway/Render)
 
-## Autora
+<br/>
 
-Desenvolvido por **Isabella de Lima** como projeto de estudo e portfólio em desenvolvimento backend.
+## 👩‍💻 Autora
+
+Desenvolvido por **Isabella Lima** como projeto de estudo e portfólio em desenvolvimento backend.
+
+<div align="center">
+
+<a href="https://www.linkedin.com/in/isabelladolima/">
+  <img src="https://img.shields.io/badge/LinkedIn-1A3A2E?style=for-the-badge&logo=linkedin&logoColor=2ECC71"/>
+</a>
+<a href="https://github.com/Isabelladolima">
+  <img src="https://img.shields.io/badge/GitHub-0D0D0D?style=for-the-badge&logo=github&logoColor=2ECC71"/>
+</a>
+
+</div>
 
 ---
 
-> Dados de filmes e elenco fornecidos pela API do [TMDb](https://www.themoviedb.org/). Este produto usa a API do TMDb, mas não é endossado ou certificado pelo TMDb.
+> Dados de filmes e elenco fornecidos pela API do [TMDb](https://www.themoviedb.org/). Dados de quadrinhos fornecidos pela API do [Comic Vine](https://comicvine.gamespot.com/). Este produto usa essas APIs, mas não é endossado ou certificado por nenhuma delas.
+
+<div align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D0D0D,50:1A3A2E,100:2ECC71&height=100&section=footer" width="100%"/>
+</div>
