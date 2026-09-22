@@ -19,3 +19,11 @@ class ElencoDB(Base):
     personagem = Column(String)
     foto_path = Column(String)
     ordem = Column(Integer)
+
+class AparicaoQuadrinhoDB(Base):
+    __tablename__ = "aparicao"
+
+    id = Column(Integer, primary_key=True, index=True)
+    issue_id = Column(Integer)
+    titulo = Column(String)
+    url = Column(String)
